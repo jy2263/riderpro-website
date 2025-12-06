@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Features | RiderPro Training Platform</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/auth.js"></script>
+    <style>
+        /* Features Page Styles */
+        body {
+            background: #f5f7fa;
+        }
+
+        .features-hero {
+            padding: 120px 20px 60px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .features-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .features-hero p {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        /* Feature Section - Alternating Layout */
+        .feature-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 120px;
+            background: white;
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .feature-section.reverse {
+            direction: rtl;
+        }
+
+        .feature-section.reverse > * {
+            direction: ltr;
+        }
+
+        .feature-image {
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .feature-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .feature-content {
+            padding: 20px;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin-bottom: 25px;
+        }
+
+        .feature-content h2 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .feature-content h3 {
+            font-size: 24px;
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .feature-content p {
+            font-size: 17px;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .feature-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .feature-content li {
+            padding: 12px 0;
+            color: #555;
+            font-size: 16px;
+            line-height: 1.7;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .feature-content li:before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .feature-content strong {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .feature-highlight {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%);
+            padding: 25px 30px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            margin: 25px 0;
+        }
+
+        .feature-highlight p {
+            margin: 0;
+            color: #333;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .feature-cta {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .feature-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 968px) {
+            .feature-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 40px 30px;
+            }
+
+            .feature-section.reverse {
+                direction: ltr;
+            }
+
+            .features-hero h1 {
+                font-size: 36px;
+            }
+
+            .feature-content h2 {
+                font-size: 28px;
+            }
+
+            .feature-content h3 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <div class="navbar">
+            <div class="logo">RiderPro Training</div>
+            <nav class="nav-links" id="navLinks">
+                <a href="home.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="features.html">Features</a>
+                <a href="quiz.html">Exercise (Quiz)</a>
+                <a href="demo.html">Demo Scenarios</a>
+                <a href="Gamification Dashboard.html">Gamification Dashboard</a>
+                <a href="rankings.html">Rankings</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <div class="hamburger" id="hamburger">☰</div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="features-hero">
+        <h1>Platform Features</h1>
+        <p>Discover how RiderPro combines AI-powered technology with gamified learning to transform delivery rider training</p>
+    </section>
+
+    <!-- Features Content -->
+    <div class="features-container">
+
+        <!-- Feature 1: Scenario-based Training -->
+        <section class="feature-section">
+            <div class="feature-image">
+                <img src="image/scenario-training.png" alt="Scenario-based Training" />
+            </div>
+            <div class="feature-content">
+                <div class="feature-icon">🎯</div>
+                <h2>Scenario-based Training</h2>
+
+                <p>This module allows riders to practice real-world delivery challenges in a risk-free environment. Through interactive simulations—such as difficult addresses, frustrated customers, spilled meals, or heavy traffic—riders are asked to make decisions and see the consequences instantly.</p>
+
+                <h3>Key Benefits</h3>
+                <ul>
+                    <li><strong>Reduce Early Mistakes:</strong> New riders can practice high-frequency scenarios before facing them in real deliveries</li>
+                    <li><strong>Correct Problematic Behaviors:</strong> Low-rated riders can quickly identify and fix service issues</li>
+                    <li><strong>Stronger Problem-Solving Skills:</strong> Build confidence through repeated practice</li>
+                    <li><strong>Better Consistency:</strong> Develop standard responses to common challenges</li>
+                    <li><strong>Fewer Service Failures:</strong> Prevent issues before they impact real customers</li>
+                </ul>
+
+                <h3>Real-World Scenarios Include</h3>
+                <ul>
+                    <li>Difficult or unclear delivery addresses</li>
+                    <li>Handling frustrated or angry customers</li>
+                    <li>Managing spilled or damaged meals</li>
+                    <li>Navigating heavy traffic and time pressure</li>
+                    <li>Dealing with weather challenges</li>
+                    <li>Resolving payment issues on delivery</li>
+                </ul>
+
+                <div class="feature-highlight">
+                    <p><strong>Result:</strong> By repeatedly experiencing high-frequency scenarios, riders build muscle memory for professional responses, leading to stronger problem-solving skills, better consistency, and fewer service failures during real deliveries.</p>
+                </div>
+
+                <a href="demo.html" class="feature-cta">Try Scenarios →</a>
+            </div>
+        </section>
+
+        <!-- Feature 2: AI Voice Feedback -->
+        <section class="feature-section reverse">
+            <div class="feature-image">
+                <img src="image/ai-voice-feedback.png" alt="AI Voice Feedback" />
+            </div>
+            <div class="feature-content">
+                <div class="feature-icon">🎤</div>
+                <h2>AI Voice Feedback</h2>
+
+                <p>This feature focuses on improving riders' communication skills through real-time AI analysis. As riders practice speaking, the AI analyzes their tone, pacing, clarity, and word choice, offering immediate feedback to prevent communication issues.</p>
+
+                <h3>What the AI Analyzes</h3>
+                <ul>
+                    <li><strong>Tone Analysis:</strong> Identifies if you sound impatient, indifferent, or overly blunt</li>
+                    <li><strong>Pacing Evaluation:</strong> Checks if you're speaking too fast or too slow</li>
+                    <li><strong>Clarity Assessment:</strong> Ensures your message is clear and understandable</li>
+                    <li><strong>Word Choice Optimization:</strong> Suggests more professional and polite alternatives</li>
+                </ul>
+
+                <h3>Training Examples</h3>
+                <ul>
+                    <li>How to politely explain delivery delays</li>
+                    <li>Proper way to confirm addresses with customers</li>
+                    <li>Techniques to de-escalate customer complaints</li>
+                    <li>Professional greetings and closing phrases</li>
+                    <li>Empathetic responses to customer concerns</li>
+                </ul>
+
+                <h3>Benefits</h3>
+                <p>The AI provides <strong>model examples</strong> demonstrating best practices for common situations. This helps riders communicate more professionally and build trust with customers, significantly reducing negative reviews caused by poor interactions.</p>
+
+                <div class="feature-highlight">
+                    <p><strong>Goal:</strong> Transform every rider into a confident communicator who can handle any customer interaction professionally, turning potential conflicts into positive experiences.</p>
+                </div>
+
+                <a href="quiz.html" class="feature-cta">Practice Now →</a>
+            </div>
+        </section>
+
+        <!-- Feature 3: Gamified Motivation System -->
+        <section class="feature-section">
+            <div class="feature-image">
+                <img src="image/gamification.png" alt="Gamified Motivation System" />
+            </div>
+            <div class="feature-content">
+                <div class="feature-icon">🏆</div>
+                <h2>Gamified Motivation System</h2>
+
+                <p>This module uses game mechanics to make training engaging and motivating. Rather than treating training as a chore, riders experience continuous learning as a fun, rewarding challenge.</p>
+
+                <h3>Reward System</h3>
+                <ul>
+                    <li><strong>Points & XP:</strong> Earn experience points for completing training modules and maintaining quality service</li>
+                    <li><strong>Badges & Achievements:</strong> Unlock special badges for mastering specific skills or reaching milestones</li>
+                    <li><strong>Streak Bonuses:</strong> Get extra rewards for consistent daily training participation</li>
+                    <li><strong>Level-Ups:</strong> Progress through levels that unlock new training content and privileges</li>
+                    <li><strong>Leaderboards:</strong> Compete with peers and see your ranking among fellow riders</li>
+                </ul>
+
+                <h3>Engagement Mechanics</h3>
+                <ul>
+                    <li>Daily challenges with bonus rewards</li>
+                    <li>Weekly competitions and special events</li>
+                    <li>Team challenges for collaborative learning</li>
+                    <li>Surprise rewards for exceptional performance</li>
+                    <li>Progress visualization and achievement showcases</li>
+                </ul>
+
+                <h3>Impact</h3>
+                <p>These rewards turn continuous learning into a fun challenge rather than an obligation. Riders become intrinsically motivated to improve, checking back regularly to complete new challenges and climb the leaderboard.</p>
+
+                <div class="feature-highlight">
+                    <p><strong>Result:</strong> This system builds a culture of self-driven improvement and significantly increases training participation rates. Riders who might skip traditional training sessions actively engage with gamified learning, leading to faster skill development and higher service quality.</p>
+                </div>
+
+                <a href="Gamification Dashboard.html" class="feature-cta">View Dashboard →</a>
+            </div>
+        </section>
+
+        <!-- Feature 4: Performance Tracking & Personalized Learning -->
+        <section class="feature-section reverse">
+            <div class="feature-image">
+                <img src="image/riderpro logo.jpg" alt="Performance Tracking" />
+            </div>
+            <div class="feature-content">
+                <div class="feature-icon">📊</div>
+                <h2>Performance Tracking & Personalized Learning</h2>
+
+                <p>This module acts as the platform's intelligence engine, continuously monitoring and analyzing each rider's performance to deliver personalized training recommendations.</p>
+
+                <h3>What We Track</h3>
+                <ul>
+                    <li><strong>Customer Ratings:</strong> Monitor rating trends and identify decline patterns</li>
+                    <li><strong>Complaint Analysis:</strong> Categorize and track types of customer complaints</li>
+                    <li><strong>Mistake Patterns:</strong> Identify recurring errors in delivery process</li>
+                    <li><strong>Training Performance:</strong> Track quiz scores, scenario results, and skill mastery</li>
+                    <li><strong>Delivery Metrics:</strong> Analyze on-time rate, order accuracy, and efficiency</li>
+                </ul>
+
+                <h3>Personalized Recommendations</h3>
+                <p>Based on your data, the system automatically recommends tailored courses:</p>
+                <ul>
+                    <li><strong>Communication Skills:</strong> If feedback mentions poor interactions</li>
+                    <li><strong>Address Verification:</strong> If you have frequent wrong-address issues</li>
+                    <li><strong>Customer Service:</strong> If ratings decline due to service complaints</li>
+                    <li><strong>Time Management:</strong> If late deliveries are a recurring problem</li>
+                    <li><strong>Handling Special Situations:</strong> Based on specific incident types</li>
+                </ul>
+
+                <h3>Smart Features</h3>
+                <ul>
+                    <li>Weakness identification with actionable insights</li>
+                    <li>Progress tracking with visual dashboards</li>
+                    <li>Predictive alerts before rating drops below thresholds</li>
+                    <li>Success metrics showing improvement over time</li>
+                    <li>Comparison with top performers to learn best practices</li>
+                </ul>
+
+                <div class="feature-highlight">
+                    <p><strong>Result:</strong> This personalized, data-driven approach ensures every rider receives the right training at the right time. Instead of generic one-size-fits-all training, each rider gets a customized learning path that directly addresses their specific weaknesses, improving both individual performance and overall service quality across the platform.</p>
+                </div>
+
+                <a href="rankings.html" class="feature-cta">View Rankings →</a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>© 2025 RiderPro. All Rights Reserved.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

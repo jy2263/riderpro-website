@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modal Test</title>
+    <style>
+        .test-card {
+            width: 200px;
+            height: 100px;
+            background: blue;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin: 50px;
+        }
+        .test-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+        }
+        .test-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .test-modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-card" data-feature="test">Click Me</div>
+    
+    <div class="test-modal" id="testModal">
+        <div class="test-modal-content">
+            <h2 id="modalTitle"></h2>
+            <p id="modalDesc"></p>
+            <button onclick="document.getElementById('testModal').classList.remove('active')">Close</button>
+        </div>
+    </div>
+
+    <script>
+        console.log('Script loaded');
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded');
+            const card = document.querySelector('.test-card');
+            const modal = document.getElementById('testModal');
+            
+            console.log('Card:', card);
+            console.log('Modal:', modal);
+            
+            if (card) {
+                card.addEventListener('click', function() {
+                    console.log('Card clicked!');
+                    document.getElementById('modalTitle').textContent = 'Test Modal';
+                    document.getElementById('modalDesc').innerHTML = '<strong>This is a test</strong>';
+                    modal.classList.add('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

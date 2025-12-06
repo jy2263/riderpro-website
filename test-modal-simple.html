@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .test-modal {
+            display: none;
+            position: fixed;
+            z-index: 99999;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(255, 0, 0, 0.8);
+        }
+        .test-modal.active {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+        }
+        .test-content {
+            background: white;
+            padding: 50px;
+            font-size: 30px;
+        }
+        .test-btn {
+            padding: 20px;
+            font-size: 20px;
+            cursor: pointer;
+            background: blue;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <button class="test-btn" onclick="document.getElementById('tm').classList.add('active')">CLICK ME</button>
+    
+    <div id="tm" class="test-modal">
+        <div class="test-content">
+            <h1>TEST MODAL VISIBLE!</h1>
+            <button onclick="document.getElementById('tm').classList.remove('active')">Close</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandatory Training - RiderPro</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Overlay to lock the screen */
+        .lock-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .warning-modal {
+            background: white;
+            max-width: 600px;
+            width: 90%;
+            border-radius: 15px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: modalSlideIn 0.4s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .warning-header {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .warning-icon {
+            font-size: 64px;
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .warning-header h2 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .warning-body {
+            padding: 40px;
+        }
+
+        .warning-message {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .warning-stats {
+            background: #fef2f2;
+            border-left: 4px solid #dc2626;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .warning-stats ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .warning-stats li {
+            margin: 10px 0;
+            color: #dc2626;
+            font-weight: 500;
+        }
+
+        .training-requirements {
+            background: #f0f9ff;
+            border-left: 4px solid #2563eb;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .training-requirements h3 {
+            margin-top: 0;
+            color: #1e40af;
+        }
+
+        .training-requirements ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .training-requirements li {
+            margin: 8px 0;
+            color: #1e40af;
+        }
+
+        .start-training-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .start-training-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Quiz Container Styles */
+        .quiz-container {
+            max-width: 800px;
+            margin: 100px auto 40px;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .quiz-container.active {
+            display: block;
+        }
+
+        .mandatory-badge {
+            display: inline-block;
+            background: #dc2626;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .quiz-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #f0f8ff;
+            border-radius: 10px;
+        }
+
+        .progress-bar-container {
+            flex: 1;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin: 0 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #2196F3);
+            transition: width 0.3s ease;
+        }
+
+        .question-card {
+            margin-bottom: 30px;
+        }
+
+        .question-number {
+            color: #2196F3;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 22px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option-btn {
+            padding: 20px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: #2196F3;
+            background: #f0f8ff;
+            transform: translateX(5px);
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        .option-label {
+            width: 35px;
+            height: 35px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .option-btn.correct {
+            border-color: #4CAF50;
+            background: #e8f5e9;
+        }
+
+        .option-btn.correct .option-label {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .option-btn.wrong {
+            border-color: #f44336;
+            background: #ffebee;
+        }
+
+        .option-btn.wrong .option-label {
+            background: #f44336;
+            color: white;
+        }
+
+        .feedback-message {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 16px;
+            display: none;
+        }
+
+        .feedback-message.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        .feedback-message.correct {
+            background: #e8f5e9;
+            border-left: 5px solid #4CAF50;
+            color: #2e7d32;
+        }
+
+        .feedback-message.wrong {
+            background: #ffebee;
+            border-left: 5px solid #f44336;
+            color: #c62828;
+        }
+
+        .next-btn {
+            margin-top: 20px;
+            padding: 15px 40px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn.show {
+            display: inline-block;
+        }
+
+        .next-btn:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+        }
+
+        .result-container {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .result-container.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .result-score {
+            font-size: 72px;
+            font-weight: bold;
+            color: #2196F3;
+            margin: 20px 0;
+        }
+
+        .result-message {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        .result-details {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            gap: 20px;
+        }
+
+        .result-stat {
+            flex: 1;
+            padding: 20px;
+            background: #f0f8ff;
+            border-radius: 10px;
+        }
+
+        .result-stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .result-stat.correct .result-stat-number {
+            color: #4CAF50;
+        }
+
+        .result-stat.wrong .result-stat-number {
+            color: #f44336;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .action-btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .continue-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .continue-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .continue-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .retry-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .retry-btn:hover {
+            background: #da190b;
+            transform: translateY(-2px);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .warning-modal {
+                width: 95%;
+            }
+
+            .warning-body {
+                padding: 20px;
+            }
+
+            .quiz-container {
+                margin: 80px 20px 20px;
+                padding: 20px;
+            }
+
+            .question-text {
+                font-size: 18px;
+            }
+
+            .option-btn {
+                padding: 15px;
+            }
+
+            .result-details {
+                flex-direction: column;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+  <script src="js/auth.js"></script>
+  </head>
+<body>
+    <!-- Warning Overlay and Modal -->
+    <div class="lock-overlay" id="lockOverlay">
+        <div class="warning-modal">
+            <div class="warning-header">
+                <div class="warning-icon">⚠️</div>
+                <h2>MANDATORY TRAINING REQUIRED</h2>
+            </div>
+            <div class="warning-body">
+                <div class="warning-message">
+                    <strong>Dear Rider,</strong>
+                    <p>Due to recent performance issues, your rating has dropped below the acceptable threshold. You must complete mandatory training before resuming delivery work.</p>
+                </div>
+
+                <div class="warning-stats">
+                    <h3>⚠️ Current Issues:</h3>
+                    <ul>
+                        <li>Current Rating: <strong>4.3 / 5.0</strong> (Below 4.5 minimum)</li>
+                        <li>Recent Customer Complaints: <strong>12</strong></li>
+                        <li>Late Deliveries (Last 7 days): <strong>8</strong></li>
+                    </ul>
+                </div>
+
+                <div class="training-requirements">
+                    <h3>📋 Training Requirements:</h3>
+                    <ul>
+                        <li>Complete <strong>10 scenario-based questions</strong></li>
+                        <li>Achieve minimum score of <strong>80%</strong> (8/10 correct)</li>
+                        <li>All platform features are locked until completion</li>
+                    </ul>
+                </div>
+
+                <button class="start-training-btn" onclick="startTraining()">
+                    Start Mandatory Training Now →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Container -->
+    <div class="quiz-container" id="quizContainer">
+        <span class="mandatory-badge">🔒 MANDATORY TRAINING</span>
+        <div class="quiz-header">
+            <h1>Communication & Service Training</h1>
+            <p>Complete all questions to unlock your account</p>
+        </div>
+
+        <div class="quiz-progress">
+            <span class="progress-text">Question <span id="currentQuestion">1</span> / 10</span>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <span class="score-text">Score: <span id="currentScore">0</span></span>
+        </div>
+
+        <div class="question-card" id="questionCard">
+            <div class="question-number" id="questionNumber">Question 1</div>
+            <div class="question-text" id="questionText"></div>
+
+            <div class="options-container" id="optionsContainer"></div>
+
+            <div class="feedback-message" id="feedbackMessage"></div>
+
+            <button class="next-btn" id="nextBtn">Next Question →</button>
+        </div>
+
+        <div class="result-container" id="resultContainer">
+            <h2>Training Complete!</h2>
+            <div class="result-score" id="finalScore">0/10</div>
+            <div class="result-message" id="resultMessage"></div>
+
+            <div class="result-details">
+                <div class="result-stat correct">
+                    <div>✓ Correct</div>
+                    <div class="result-stat-number" id="correctCount">0</div>
+                </div>
+                <div class="result-stat wrong">
+                    <div>✗ Wrong</div>
+                    <div class="result-stat-number" id="wrongCount">0</div>
+                </div>
+                <div class="result-stat">
+                    <div>Accuracy</div>
+                    <div class="result-stat-number" id="accuracy">0%</div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-btn continue-btn" id="continueBtn" disabled>Continue to Work</button>
+                <button class="action-btn retry-btn" id="retryBtn" style="display: none;">Retry Training</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/scenario-training.js"></script>
+</body>
+</html>
